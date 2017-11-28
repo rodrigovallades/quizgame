@@ -1,6 +1,6 @@
 (function() {
 
-    var points, questions, randomQuestion;
+    var points, questions;
     
     points = 0;
     questions = [];    
