@@ -18,28 +18,29 @@
 
     Question.prototype = {
         checkAnswer: function(input) {
-            // checking if prompt was cancelled. If so, abort.          
-            if (input === null) {       
+            // checking if prompt was cancelled or aborted. If so, abort.            
+            if (input === null || input.toLowerCase() === 'exit') {
                 console.log('\n--------');         
                 console.log('\nYou achieved a total of ' + points + ' points.')
                 console.log('\nAborting...')
                 return;
-            }                        
-            if (input === this.correctAnswer) {
-                points += 1;
+            }
+            // convert prompt input to number
+            if (Number(input) === this.correctAnswer) {                
                 console.log('\nRIGHT ANSWER!');
-                console.log('\nPoints: ' + points);
+                this.showPoints();
             } else {
                 console.log('\nWrong answer.')
             }
             this.nextQuestion();
-        },        
+        },
+        showPoints: function() {
+            points += 1;
+            console.log('\nPoints: ' + points);
+        },    
         ask: function() {
             this.logToConsole();
-            var answer = prompt(this.question);
-            if (answer !== null) {
-                answer = parseInt(answer);
-            }            
+            var answer = prompt(this.question + '\nPress ESC, cancel or type \'exit\' to abort.');       
             this.checkAnswer(answer);
         },
         nextQuestion: function() {            
